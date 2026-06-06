@@ -1,7 +1,28 @@
 services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - SEARXNG_URL=http://searxng:8080
+    depends_on:
+      - searxng
+    networks:
+      - searchnet
+
   searxng:
     image: searxng/searxng
     ports:
       - "8080:8080"
     volumes:
-      - ./searxng/settings.yml:/etc/searxng/settings.yml
+      - searxng-data:/var/cache/searxng
+      - ./settings.yml:/etc/searxng/settings.yml:ro
+    networks:
+      - searchnet
+
+networks:
+  searchnet:
+    driver: bridge
+
+volumes:
+  searxng-data: {}

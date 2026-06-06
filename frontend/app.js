@@ -34,47 +34,49 @@ async function search() {
 
     lastResults = data;
 
-    document.getElementById(
-        "status"
-    ).innerText =
-        `${data.results.length} : tolik jsem jich našel.`;
+    document.getElementById("status").innerText = `${data.results.length} : tolik jsem jich našel.`;
 
-    renderResults(
-        data.results
-    );
+    renderResults(data.results);
+    // update debug counter
+    const debug = document.getElementById('debug-count');
+    if (debug) debug.textContent = `Returned: ${data.results.length} | Rendered: ${document.getElementById('results').childElementCount}`;
 }
 
 function renderResults(results) {
-
-    const container =
-        document.getElementById(
-            "results"
-        );
-
-    container.innerHTML = "";
+    const container = document.getElementById('results');
+    container.innerHTML = '';
+    const frag = document.createDocumentFragment();
 
     for (const result of results) {
+        const card = document.createElement('div');
+        card.className = 'result';
 
-        container.innerHTML += `
-            <div class="result">
+        const title = document.createElement('div');
+        title.className = 'result-title';
+        title.textContent = `${result.position}. ${result.title}`;
 
-                <div class="result-title">
-                    ${result.position}. ${result.title}
-                </div>
+        const urlWrap = document.createElement('div');
+        urlWrap.className = 'result-url';
+        const a = document.createElement('a');
+        a.href = result.url || '#';
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = result.url || '';
+        urlWrap.appendChild(a);
 
-                <div class="result-url">
-                    <a href="${result.url}" target="_blank">
-                        ${result.url}
-                    </a>
-                </div>
+        const snippet = document.createElement('div');
+        snippet.className = 'result-snippet';
+        snippet.textContent = result.snippet || '';
 
-                <div class="result-snippet">
-                    ${result.snippet}
-                </div>
-
-            </div>
-        `;
+        card.appendChild(title);
+        card.appendChild(urlWrap);
+        card.appendChild(snippet);
+        frag.appendChild(card);
     }
+
+    container.appendChild(frag);
+    const debug = document.getElementById('debug-count');
+    if (debug) debug.textContent = `Returned: ${lastResults ? lastResults.results.length : 0} | Rendered: ${container.childElementCount}`;
 }
 
 function downloadJson() {
