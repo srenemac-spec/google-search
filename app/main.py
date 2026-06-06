@@ -6,6 +6,8 @@ if hasattr(asyncio, "WindowsProactorEventLoopPolicy"):
     )
 
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from app.search import google_search
@@ -25,7 +27,7 @@ class SearchRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok"}
+    return FileResponse("frontend/index.html")
 
 @app.post("/search")
 async def search(request: SearchRequest):
@@ -39,3 +41,8 @@ async def search(request: SearchRequest):
         "results": results
     }
 
+app.mount(
+    "/frontend",
+    StaticFiles(directory="frontend"),
+    name="frontend"
+)

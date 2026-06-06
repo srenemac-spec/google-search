@@ -16,7 +16,7 @@ async function search() {
 
     const response =
         await fetch(
-            "http://localhost:8000/search",
+            "/search",
             {
                 method: "POST",
                 headers: {
