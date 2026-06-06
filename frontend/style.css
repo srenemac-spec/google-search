@@ -1,0 +1,140 @@
+/* Base */
+body {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  background-color: #0f172a; /* deep navy preserved */
+  color: #ffffff;
+  text-align: center;
+}
+
+/* Sticky top bar */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #0f172a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 15px 20px;
+  text-align: center;
+}
+
+
+
+#query {
+  width: 320px;
+  padding: 12px 14px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+
+  color: #ffffff;
+  outline: none;
+
+  transition: all 0.25s ease;
+}
+
+#query:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+}
+
+#query:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 14px rgba(96, 165, 250, 0.35);
+}
+
+button {
+  padding: 10px 14px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+
+  color: #ffffff;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+#status {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+
+#results {
+  max-width: 750px;
+  margin: 30px auto;
+  padding: 0 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+.result {
+  background: rgba(255, 255, 255, 0.06); 
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+
+  padding: 14px 16px;
+  margin: 0;
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+
+  transition: all 0.2s ease;
+}
+
+
+.result-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+
+.result-url a {
+  font-size: 12px;
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.result-url a:hover {
+  text-decoration: underline;
+}
+
+
+.result-snippet {
+  font-size: 13px;
+  opacity: 0.85;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 72px;
+  font-weight: 600;
+  letter-spacing: 12px;
+  text-transform: uppercase;
+
+  color: #ffffff;
+
+  text-align: center;
+
+  margin: 40px 0 25px 0;
+
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.15),
+    0 0 25px rgba(96, 165, 250, 0.25),
+    0 0 40px rgba(96, 165, 250, 0.15);
+}

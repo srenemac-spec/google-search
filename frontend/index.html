@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gůglovač</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Gůgl</h1>
+        
+        <div class="input-area">
+        <input
+            id="query"
+            type="text"
+            placeholder="Co to bude?"
+        >
+
+        <button onclick="search()">
+            Hledat
+        </button>
+
+        <button onclick="downloadJson()">
+            Stáhnout JSON
+        </button>
+
+        <button onclick="downloadCsv()">
+            Stáhnout CSV
+        </button>
+    
+    </div>
+
+        <div id="status"></div>
+
+        <div id="results"></div>
+
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
