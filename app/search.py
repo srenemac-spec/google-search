@@ -68,16 +68,9 @@ async def _fetch_search_page(query, page=None):
             timeout=60,
         )
 
-    text = response.text
+    return response.text
 
-    if "SERVICE WAKING UP" not in text:
-        return text
-
-    await asyncio.sleep(15)
-
-    raise RuntimeError(
-        "SearXNG is still waking up"
-    )
+    
 
 async def google_search(query, max_results=10, min_results=None, max_pages=5):
     if min_results is None:
