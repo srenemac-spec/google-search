@@ -21,12 +21,12 @@ async def fake_fetch_page(query, page=None):
     return pages.get(page, "<html><body></body></html>")
 
 
-def test_google_search_min_results():
+def test_google_search_returns_expected_results():
     original_fetch = search._fetch_search_page
     search._fetch_search_page = fake_fetch_page
 
     try:
-        results = asyncio.run(search.google_search("dog", max_results=4, min_results=4, max_pages=2))
+        results = asyncio.run(search.google_search("dog", max_results=4, max_pages=2))
         assert len(results) == 4
         assert [r["title"] for r in results] == [
             "Title 1",
@@ -43,7 +43,7 @@ def test_google_search_positions_are_sequential_across_pages():
     search._fetch_search_page = fake_fetch_page
 
     try:
-        results = asyncio.run(search.google_search("dog", max_results=4, min_results=4, max_pages=2))
+        results = asyncio.run(search.google_search("dog", max_results=4, max_pages=2))
         assert [result["position"] for result in results] == [1, 2, 3, 4]
         assert [result["title"] for result in results] == [
             "Title 1",
@@ -54,10 +54,3 @@ def test_google_search_positions_are_sequential_across_pages():
     finally:
         search._fetch_search_page = original_fetch
 
-
-def test_google_search_min_results_validates_arguments():
-    try:
-        asyncio.run(search.google_search("dog", max_results=3, min_results=4))
-        assert False, "Expected ValueError when min_results > max_results"
-    except ValueError as exc:
-        assert "min_results cannot be greater than max_results" in str(exc)
