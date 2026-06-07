@@ -3,18 +3,7 @@
 
 - Structured JSON output
 - CSV export
-- FastAPI backend
-- SearXNG search provider
-
-
-# Google Search Task
-
-## Features
-
-- Structured JSON output
-- CSV export
-- FastAPI backend serving a simple static frontend
-- SearxNG search provider (runs in a separate container)
+- FastAPI + SearxNG search provider (only accepts google results)
 
 ## Run (local, Docker Compose)
 
