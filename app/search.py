@@ -57,6 +57,7 @@ def parse_search_results(html, max_results=10):
 
 async def _fetch_search_page(query, page=None):
     params = {"q": query}
+
     if page is not None:
         params["pageno"] = page
 
@@ -69,14 +70,14 @@ async def _fetch_search_page(query, page=None):
 
     text = response.text
 
-        if "SERVICE WAKING UP" not in text:
-            return text
+    if "SERVICE WAKING UP" not in text:
+        return text
 
-        await asyncio.sleep(15)
+    await asyncio.sleep(15)
 
     raise RuntimeError(
-        "
-
+        "SearXNG is still waking up"
+    )
 
 async def google_search(query, max_results=10, min_results=None, max_pages=5):
     if min_results is None:
