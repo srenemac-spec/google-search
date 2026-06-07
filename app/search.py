@@ -64,10 +64,18 @@ async def _fetch_search_page(query, page=None):
         response = await client.get(
             f"{SEARXNG_URL}/search",
             params=params,
-            timeout=30,
+            timeout=60,
         )
 
-    return response.text
+    text = response.text
+
+        if "SERVICE WAKING UP" not in text:
+            return text
+
+        await asyncio.sleep(15)
+
+    raise RuntimeError(
+        "
 
 
 async def google_search(query, max_results=10, min_results=None, max_pages=5):
