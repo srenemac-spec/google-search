@@ -1,16 +1,25 @@
 from fastapi.testclient import TestClient
+from unittest.mock import AsyncMock, patch
 
 from app.main import app
 
 client = TestClient(app)
 
-def test_search_response():
+
+@patch("app.main.google_search", new_callable=AsyncMock)
+def test_search_response(mock_search):
+
+    mock_search.return_value = [
+        {
+            "title": "Dog",
+            "url": "https://example.com",
+            "snippet": "A dog result"
+        }
+    ]
 
     response = client.post(
         "/search",
-        json={
-            "query": "dog"
-        }
+        json={"query": "dog"}
     )
 
     assert response.status_code == 200
@@ -19,24 +28,26 @@ def test_search_response():
 
     assert "query" in data
     assert "results" in data
+    assert isinstance(data["results"], list)
 
-    assert isinstance(
-        data["results"],
-        list
-    )
 
-def test_first_result_shape():
+@patch("app.main.google_search", new_callable=AsyncMock)
+def test_first_result_shape(mock_search):
+
+    mock_search.return_value = [
+        {
+            "title": "Dog",
+            "url": "https://example.com",
+            "snippet": "A dog result"
+        }
+    ]
 
     response = client.post(
         "/search",
-        json={
-            "query": "dog"
-        }
+        json={"query": "dog"}
     )
 
-    result = response.json()[
-        "results"
-    ][0]
+    result = response.json()["results"][0]
 
     assert "title" in result
     assert "url" in result
