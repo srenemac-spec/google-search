@@ -75,8 +75,7 @@ function renderResults(results) {
     }
 
     container.appendChild(frag);
-    const debug = document.getElementById('debug-count');
-    if (debug) debug.textContent = `Returned: ${lastResults ? lastResults.results.length : 0} | Rendered: ${container.childElementCount}`;
+
 }
 
 function downloadJson() {
