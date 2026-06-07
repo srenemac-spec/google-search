@@ -72,12 +72,7 @@ async def _fetch_search_page(query, page=None):
 
     
 
-async def google_search(query, max_results=10, min_results=None, max_pages=5):
-    if min_results is None:
-        min_results = max_results
-    if min_results > max_results:
-        raise ValueError("min_results cannot be greater than max_results")
-
+async def google_search(query, max_results=10, max_pages=5):
     results = []
     seen_urls = set()
     page = 1
