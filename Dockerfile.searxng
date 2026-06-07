@@ -1,0 +1,6 @@
+FROM searxng/searxng
+
+# Copy the repo settings into the SearxNG image so Render always uses this config
+COPY settings.yml /etc/searxng/settings.yml
+
+# Keep the default entrypoint from the official image

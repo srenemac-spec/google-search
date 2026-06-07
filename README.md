@@ -44,21 +44,30 @@ Open the frontend at `http://localhost:8000/`.
 
 ## Deployment to Render (recommended)
 
-High-level steps:
+This repo now includes a Render manifest and a dedicated SearxNG Dockerfile to ensure `settings.yml` is always included.
+
+### Recommended Render setup
 
 1. Push this repository to GitHub (already done).
-2. In Render, create two services (or use a public SearxNG instance):
-	- `searxng`: use the official image `searxng/searxng`, port `8080`.
-	- `api`: connect to this repo and deploy using the provided `Dockerfile`. Set the build to use the repo Dockerfile and let Render run the container.
-3. Set the environment variable for the `api` service:
+2. In Render, connect this repo and use the provided `render.yaml` manifest.
+3. The manifest defines two services:
+   - `google-search-api` — built with the repo `Dockerfile`.
+   - `google-search-searxng` — built with `Dockerfile.searxng` and copies `settings.yml` into the container.
+4. Set the environment variable for the `api` service:
 
 ```
-SEARXNG_URL=https://<your-searx-service>.onrender.com
+SEARXNG_URL=https://google-search-searxng.onrender.com
 ```
+
+### Why this is important
+
+- The official `searxng/searxng` image does not automatically include your local `settings.yml`.
+- `Dockerfile.searxng` bakes your repo `settings.yml` into `/etc/searxng/settings.yml` before deployment.
+- This ensures DuckDuckGo and other engine settings from `settings.yml` are respected on Render.
 
 Notes:
-- If you prefer not to run SearxNG on Render, set `SEARXNG_URL` to a public SearxNG instance.
-- Render will build the Docker image and run the container; the frontend is served by the backend at `/` and static files under `/static`.
+- If you prefer not to run your own SearxNG on Render, you can still set `SEARXNG_URL` to a public SearxNG instance.
+- The `api` service serves the frontend at `/` and static files under `/static`.
 
 ## Environment variables
 

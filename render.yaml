@@ -1,0 +1,16 @@
+services:
+  - name: google-search-api
+    type: web_service
+    env: docker
+    branch: master
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: SEARXNG_URL
+        value: https://google-search-searxng.onrender.com
+
+  - name: google-search-searxng
+    type: web_service
+    env: docker
+    branch: master
+    dockerfilePath: Dockerfile.searxng
+    healthCheckPath: /
