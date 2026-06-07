@@ -61,6 +61,23 @@ async def _fetch_search_page(query, page=None):
         params["pageno"] = page
 
     async with httpx.AsyncClient() as client:
+       
+           for _ in range(3):
+            try:
+                wake_response = await client.get(
+                    SEARXNG_URL,
+                    timeout=10
+                )
+
+                if wake_response.status_code == 200:
+                    break
+
+            except Exception:
+                pass
+
+            await asyncio.sleep(5)
+        
+        
         response = await client.get(
             f"{SEARXNG_URL}/search",
             params=params,
