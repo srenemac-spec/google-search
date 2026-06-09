@@ -59,16 +59,6 @@ This repo now includes a Render manifest and a dedicated SearxNG Dockerfile to e
 SEARXNG_URL=https://google-search-searxng.onrender.com
 ```
 
-### Why this is important
-
-- The official `searxng/searxng` image does not automatically include your local `settings.yml`.
-- `Dockerfile.searxng` bakes your repo `settings.yml` into `/etc/searxng/settings.yml` before deployment.
-- This ensures DuckDuckGo and other engine settings from `settings.yml` are respected on Render.
-
-Notes:
-- If you prefer not to run your own SearxNG on Render, you can still set `SEARXNG_URL` to a public SearxNG instance.
-- The `api` service serves the frontend at `/` and static files under `/static`.
-
 ## Environment variables
 
 - `SEARXNG_URL` — URL where SearxNG is reachable (default: `http://localhost:8080`).
@@ -79,21 +69,10 @@ Notes:
 - `GET /api/status` — health check
 - `POST /search` — search API; JSON body: `{ "query": "your query" }`
 
-## Important repository notes
-
-- `settings.yml` was adjusted so SearxNG listens on `0.0.0.0` and port `8080` for Docker Compose compatibility. If you change `settings.yml`, ensure the container port and `SEARXNG_URL` remain consistent.
-- The frontend uses a relative path to the API (`/search`) so the app works both locally and when deployed behind a host.
-
 ## Tests
 
 Run tests with:
 
-```bash
 pytest
-```
 
-## Troubleshooting
 
-- If `http://localhost:8000/` is refused, ensure Docker is running and both containers show `Up` with `docker compose ps`.
-- Check logs with `docker compose logs --tail 200`.
-- If SearxNG fails to start due to missing DB tables, remove persistent volume or reinitialize SearxNG data (see SearxNG docs).
