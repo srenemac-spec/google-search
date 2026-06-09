@@ -37,13 +37,18 @@ def _extract_search_result(article):
 def parse_search_results(html, max_results=10):
     soup = BeautifulSoup(html, "html.parser")
     results = []
+    seen_urls = set()
 
     for article in soup.select("article.result"):
         result = _extract_search_result(article)
         if not result:
             continue
         
-        results.append(result)
+        if result["url"] in seen_urls:
+            continue
+
+        seen_urls.add(result["url"])
+        results.append({"position": len(results) + 1, **result})
 
         if len(results) >= max_results:
             break
