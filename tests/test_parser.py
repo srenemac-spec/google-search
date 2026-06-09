@@ -19,7 +19,7 @@ def test_parse_search_results_returns_ten_valid_items():
     results = parse_search_results(html_content)
 
     assert len(results) == 10
-    assert results[0]["title"] == "Title 0"
+    assert results[0]["title"] == "Title 1"
     assert results[3]["title"] == "Title 4"
     assert results[-1]["title"] == "Title 10"
     assert [result["position"] for result in results] == list(range(1, 11))
