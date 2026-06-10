@@ -99,3 +99,4 @@ async def google_search(query, max_results=10, max_pages=5):
         page += 1
 
     return results[:max_results]
+    return results[:max_results]
