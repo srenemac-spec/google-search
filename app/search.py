@@ -43,7 +43,6 @@ def parse_search_results(html, max_results=10):
         result = _extract_search_result(article)
         if not result:
             continue
-        
         if result["url"] in seen_urls:
             continue
 
